@@ -1,5 +1,3 @@
-package sortVisualizer;
-
 import javax.swing.JFrame;
 import java.io.*;
 import java.util.*;
