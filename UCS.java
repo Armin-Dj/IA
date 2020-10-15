@@ -1,98 +1,221 @@
-import java.io.*;
-import java.util.*;
-import javafx.util.Pair; 
-
-public class UCS {
-    private     Vector<Vector<Integer>>                 graph;
-    private     Map<Pair<Integer,Integer>, Integer>     cost;
-
-    UCS(Vector<Integer> goal, int start)
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+import java.util.Set;
+ 
+public class UCS
+{
+    private PriorityQueue<Node> priorityQueue;
+    private Set<Integer> settled;
+    private int distances[];
+    private int numberOfNodes;
+    private int adjacencyMatrix[][];
+    private LinkedList<Integer> path;
+    private int[] parent;
+    private int source, destination;
+    public static final int MAX_VALUE = 999; 
+ 
+    public UCS(int numberOfNodes)
     {
+        this.numberOfNodes = numberOfNodes;
+        this.settled = new HashSet<Integer>();
+        this.priorityQueue = new PriorityQueue<>(numberOfNodes, new Node());
+        this.distances = new int[numberOfNodes + 1];
+        this.path = new LinkedList<Integer>();
+        this.adjacencyMatrix = new int[numberOfNodes + 1][numberOfNodes + 1]; 
+        this.parent = new int[numberOfNodes + 1];
     }
-    Vector<Integer> UCS(Vector<Integer> goal, int start)
+ 
+    public int UCS(int adjacencyMatrix[][], int source, int destination)
     {
-        Vector<Integer> retVal                      = new Vector<Integer> ();
-        PriorityQueue<Map<Integer, Integer> > queue = new PriorityQueue<Map<Integer,Integer> > ();
-
-        Pair<Integer, Integer> p = queue.peek();
-
-        for (int i = 0; i < goal.size(); i++) 
+        int evaluationNode;
+        this.source = source;
+        this.destination = destination;
+ 
+        for (int i = 1; i <= numberOfNodes; i++)
         {
-            retVal.add(255);    
+            distances[i] = MAX_VALUE;
         }
-
-        queue.add(new Pair<Integer, Integer> (0,start));
-        Map<Integer,Integer> visited;
-        int counter = 0;
-
-        while(queue.size( ) > 0)
+ 
+        for (int sourcevertex = 1; sourcevertex <= numberOfNodes; sourcevertex++)
         {
-            int index;
-            p = queue.poll();
-            p.first *= -1;
-
-            if(find(goal.firstElement(), goal.lastElement(), p.second) != goal.lastElement())
+            for (int destinationvertex = 1; destinationvertex <= numberOfNodes; destinationvertex++)
             {
-                index = find (goal.firstElement(), goal.lastElement(), p.second) - goal.firstElement();
-            }
-
-            if (retVal.get(index) == 255)
-            {
-                counter ++;
-            }
-
-            if(retVal.get(index) > p.first)
-            {
-                retVal.set(index, p.first);
-            }
-
-            queue.poll();
-
-            if(counter == goal.size())
-            {
-                return retVal;
-            }
+                this.adjacencyMatrix[sourcevertex][destinationvertex] =
+                       adjacencyMatrix[sourcevertex][destinationvertex];
+	    }
         }
-
-        if(visited.get(p.second) == 0)
+ 
+        priorityQueue.add(new Node(source, 0));
+        distances[source] = 0;
+ 
+        while (!priorityQueue.isEmpty())
         {
-            for (int i = 0; i < graph.get(p.second).size(); i++) 
+            evaluationNode = getNodeWithMinDistanceFromPriorityQueue();
+            System.out.println("The eval Node is " + evaluationNode);
+            if (evaluationNode == destination)
             {
-                queue.add(new Pair<Integer, Integer>(p.first +
-                 cost.get(new Pair<Integer, Integer>, Integer> (p.second, graph.get(p.second, i)) * (-1)),
-                 graph.get(p.second,i)));
-            }
-
-            visited.put(p.second) = 1;
+                return distances[destination];
+            } 
+            settled.add(evaluationNode);
+            addFrontiersToQueue(evaluationNode);
         }
-
-        return retVal;
+        return distances[destination];
     }
-
-    public static void main(String[] args) {
-        Vector<Vector<Integer>> graph = new Vector<Vector<Integer>>(7);
-
-        graph.add (1, new Vector<Integer>(0));
-        graph.add (2, new Vector<Integer>(1));
-        graph.add (5, new Vector<Integer>(3));
-        graph.add (4, new Vector<Integer>(4));
-        graph.add (3, new Vector<Integer>(5));
-        graph.add (5, new Vector<Integer>(2));
-
-        cost.add(new Pair<Integer,Integer>(0,1), 3);
-        cost.add(new Pair<Integer,Integer>(1,2), 73);
-        cost.add(new Pair<Integer,Integer>(3,5), 6);
-        cost.add(new Pair<Integer,Integer>(4,4), 4);
-        cost.add(new Pair<Integer,Integer>(5,3), 55);
-        cost.add(new Pair<Integer,Integer>(2,5), 10);
-        
-        Vector<Integer> goal = new Vector<Integer>();
-
-        goal.add(6);
-
-        Vector<Integer> answer = UCS(goal,0);
-
-        System.out.println("Min cost from 0 to 6 is %d" answer.toString());
-
+ 
+    private void addFrontiersToQueue(int evaluationNode)
+    {
+        for (int destination = 1; destination <= numberOfNodes; destination++)
+        {
+            if (!settled.contains(destination))
+            {
+                if (adjacencyMatrix[evaluationNode][destination] != MAX_VALUE)
+                {
+                    if (distances[destination] > adjacencyMatrix[evaluationNode][destination]  
+                                    + distances[evaluationNode])
+                    {
+                        distances[destination] = adjacencyMatrix[evaluationNode][destination]	
+                                               + distances[evaluationNode]; 				 		
+                        parent[destination] = evaluationNode;
+                    }
+ 
+                    Node node = new Node(destination, distances[destination]);
+                    if (priorityQueue.contains(node))
+                    {
+                        priorityQueue.remove(node);
+                    }
+                    priorityQueue.add(node);
+                }
+            }
+        }
+    }
+ 
+    private int getNodeWithMinDistanceFromPriorityQueue()
+    {
+        Node node = priorityQueue.remove();
+        return node.node;
+    }
+ 
+    public void printPath()
+    {
+        path.add(destination);
+        boolean found = false;
+        int vertex = destination;
+        while (!found)
+        {
+            if (vertex == source)
+            {
+                found = true;
+                continue;
+            }
+            path.add(parent[vertex]);
+            vertex = parent[vertex];
+        }
+ 
+        System.out.println("The Path between " + source + " and " + destination+ " is ");
+        Iterator<Integer> iterator = path.descendingIterator();
+        while (iterator.hasNext())
+        {
+            System.out.print(iterator.next() + "\t");
+        }
+    }
+ 
+    public static void main(String... arg)
+    {
+        int adjacency_matrix[][];
+        int number_of_vertices;
+        int source = 0;
+        int destination = 0;
+        int distance;
+        Scanner scan = new Scanner(System.in);
+        try
+        {
+            System.out.println("Enter the number of vertices");
+            number_of_vertices = scan.nextInt();
+ 
+            adjacency_matrix = new int[number_of_vertices + 1][number_of_vertices + 1];
+            System.out.println("Enter the Weighted Matrix for the graph");
+            for (int i = 1; i <= number_of_vertices; i++)
+            {
+                for (int j = 1; j <= number_of_vertices; j++)
+                {
+                    adjacency_matrix[i][j] = scan.nextInt();
+                    if (i == j)
+                    {
+                        adjacency_matrix[i][j] = 0;
+                        continue;
+                    }
+                    if (adjacency_matrix[i][j] == 0)
+                    {
+                        adjacency_matrix[i][j] = MAX_VALUE;
+                    }
+                }
+            }
+ 
+            System.out.println("Enter the source ");
+            source = scan.nextInt();
+ 
+            System.out.println("Enter the destination");
+            destination = scan.nextInt();
+ 
+            UCS UCS = new UCS(number_of_vertices);
+            distance = UCS.UCS(adjacency_matrix,source, destination);
+            UCS.printPath();
+ 
+            System.out.println("\nThe Distance between source " + source +
+                          " and destination " + destination + " is " + distance);
+ 
+        } catch (InputMismatchException inputMismatch)
+        {
+            System.out.println("Wrong Input Format");
+        }
+        scan.close();
+    }
+}
+ 
+class Node implements Comparator<Node>
+{
+    public int node;
+    public int cost;
+ 
+    public Node()
+    {
+ 
+    }
+ 
+    public Node(int node, int cost)
+    {
+        this.node = node;
+        this.cost = cost;
+    }
+ 
+    @Override
+    public int compare(Node node1, Node node2)
+    {
+        if (node1.cost < node2.cost)
+            return -1;
+        if (node1.cost > node2.cost)
+            return 1;
+        if (node1.node < node2.node)
+            return -1;
+        return 0;
+    }
+ 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Node)
+        {
+            Node node = (Node) obj;
+            if (this.node == node.node)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

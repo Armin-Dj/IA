@@ -48,7 +48,7 @@ class DFS
 
     public static void main(String args[])
     {
-        Graph g     = new Graph(4);
+        DFS g     = new DFS(4);
 
         g.addEdge(0, 1);
         g.addEdge(3, 3);
