@@ -20,7 +20,7 @@ public class NavProblem extends Problem {
         ArrayList<Integer> actiune = new ArrayList<>();
         for (int i = 0; i < map[((StareNav) stare).getID()].length; i++) {
             if (map[((StareNav) stare).getID()][i] != 0) {
-                if (stare.parinte != null) {
+                if (null != stare.parinte){
                     if (i != ((StareNav) stare.parinte).getID())
                         actiune.add(i);
                 } else

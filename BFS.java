@@ -14,7 +14,7 @@ public class BFS extends Algoritm{
     public void cautare(){
         totalLista.add(problem.getStareInitiala());
         nodVizitat++;
-        while(totalLista.isEmpty()){
+        while(!totalLista.isEmpty()){
             Stare s = totalLista.remove();
             if (isGraph)
                 exploratLista.add(s);
@@ -24,7 +24,7 @@ public class BFS extends Algoritm{
                 Stare copil = problem.urmatoareaStare(s, actiune);
                 nodVizitat++;
                 if(isGraph){
-                    if(exploratLista.contains(copil) && !totalLista.contains(copil)){
+                    if(!exploratLista.contains(copil) && !totalLista.contains(copil)){
                         if(problem.testStareFinala(copil)){
                             raspuns = copil;
                             creazaSolutieCale(copil);
