@@ -1,15 +1,19 @@
-public class StareNav extends Stare {
+public class StareNav extends Stare 
+{
     private int id;
-    public int getID(){
+    public int getID()
+    {
         return id;
     }
 
-    public StareNav(int id){
+    public StareNav(int id)
+    {
         super();
         this.id = id;
     }
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) 
+    {
         if (this == obj)
             return true;
         if (!(obj instanceof StareNav))
@@ -19,7 +23,8 @@ public class StareNav extends Stare {
     }
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "" + id;
     }
 }

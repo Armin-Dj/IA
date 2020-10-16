@@ -26,50 +26,62 @@ public abstract class Algoritm{
     }
 
     
-    public int getNodVizitat() {
+    public int getNodVizitat() 
+    {
         return nodVizitat;
     }
 
-    public int getNodExpandat() {
+    public int getNodExpandat() 
+    {
         return nodExpandat;
     }
 
-    public int getmaxNodInMemorie() {
+    public int getmaxNodInMemorie() 
+    {
         return maxNodInMemorie;
     }
 
-    public LinkedList<Integer> getDrum() {
+    public LinkedList<Integer> getDrum() 
+    {
         return drum;
     }
 
-    public void setProblem(Problem problem) {
+    public void setProblem(Problem problem) 
+    {
         this.problem = problem;
     }
 
-    public Problem getProblem() {
+    public Problem getProblem() 
+    {
         return problem;
     }
     abstract public void execute();
 
-    public void cautare(){
+    public void cautare()
+    {
 
     }
 
-    protected void creazaSolutieCale (Stare stare){
+    protected void creazaSolutieCale (Stare stare)
+    {
         Stare temp = stare;
-        while (null != temp){
+        while (null != temp)
+        {
             drum.add(temp.act);
             temp = temp.parinte;
         }
     }
 
-    protected void showLists(){
+    protected void showLists()
+    {
         System.out.print("Total liste: ");
-        for (Stare stare: totalLista) {
+        for (Stare stare: totalLista) 
+        {
             System.out.print(stare+ ", ");
         }
         System.out.print("\texplored list: ");
-        for (Stare stare: exploratLista) {
+        for (Stare stare: exploratLista) 
+        {
             System.out.print(stare+ ", ");
         }
         System.out.println();

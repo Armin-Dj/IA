@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Problem{
+public abstract class Problem
+{
     protected Stare stareInitiala;
     protected Stare stareFinala;
 
-    public Stare getStareInitiala(){
+    public Stare getStareInitiala()
+    {
         return stareInitiala;
     }
 
@@ -17,7 +19,8 @@ public abstract class Problem{
     abstract public int costCale(List<Integer> path);
 
     //Functie pentru heuristica, trebuie override in A*
-    public int heuristic(Stare stare){
+    public int heuristic(Stare stare)
+    {
         return 0;
     }
 }
