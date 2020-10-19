@@ -2,27 +2,27 @@ import java.util.Comparator;
 
 public class GBFS extends Algoritm
 {
-    public GBFS(boolean isGraph) 
+    public GBFS(boolean isGraph)
     {
         super(isGraph);
     }
 
     @Override
-    public void execute() 
+    public void execute()
     {
         cautare();
     }
 
     @Override
-    public void cautare() 
+    public void cautare()
     {
         totalLista.add(problem.getStareInitiala());
         nodVizitat++;
-        while (!totalLista.isEmpty()) 
+        while (!totalLista.isEmpty())
         {
             showLists();
             Stare s = totalLista.remove();
-            if (problem.testStareFinala(s)) 
+            if (problem.testStareFinala(s))
             {
                 raspuns = s;
                 creazaSolutieCale(s);
@@ -33,25 +33,25 @@ public class GBFS extends Algoritm
                 exploratLista.add(s);
             nodExpandat++;
 
-            for (Integer actiune : problem.actiuni(s)) 
+            for (Integer actiune : problem.actiuni(s))
             {
                 Stare child = problem.urmatoareaStare(s, actiune);
                 nodVizitat++;
-                if (isGraph) 
+                if (isGraph)
                 {
-                    if (!exploratLista.contains(child) && !totalLista.contains(child)) 
+                    if (!exploratLista.contains(child) && !totalLista.contains(child))
                     {
                         totalLista.add(child);
                     }
-                } 
-                else 
+                }
+                else
                 {
                     totalLista.add(child);
                 }
             }
 
             //nu e al nostru
-            totalLista.sort(new Comparator<Stare>() 
+            totalLista.sort(new Comparator<Stare>()
             {
                 @Override
                 public int compare(Stare s1, Stare s2)

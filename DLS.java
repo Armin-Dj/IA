@@ -5,8 +5,10 @@ public class DLS extends Algoritm
     public DLS(boolean isGraph, int limit)
     {
         super(isGraph);
-        if ( limit < 0)
+        if ( limit < 0){
             System.out.println("Limita este invalida");
+        }
+
         else
             this.limit = limit;
     }
@@ -35,7 +37,7 @@ public class DLS extends Algoritm
         {
             return 0;
         }
-        else 
+        else
         {
             nodExpandat++;
             boolean taiere = false;
@@ -58,8 +60,8 @@ public class DLS extends Algoritm
                             return result;
                         }
                     }
-                } 
-                else 
+                }
+                else
                 {
                     int result = cautare(copil, limit -1);
                     if (0 == result)
@@ -70,8 +72,10 @@ public class DLS extends Algoritm
                 maxNodInMemorie = Integer.max(maxNodInMemorie, exploratLista.size());
             }
 
+
             if(isGraph)
                 totalLista.remove(nod);
+
             if (taiere)
                 return 0;
             else

@@ -2,35 +2,39 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavProblem extends Problem 
+
+public class NavProblem extends Problem
 {
     private int[][] map;
     private int[] drumDrept;
 
-    public NavProblem() 
+
+    public NavProblem()
     {
         initProblem();
     }
 
 
-    public boolean testStareFinala(Stare stare) 
+    public boolean testStareFinala(Stare stare)
     {
         return stareFinala.equals(stare);
     }
 
     @Override
-    public ArrayList<Integer> actiuni(Stare stare) 
+    public ArrayList<Integer> actiuni(Stare stare)
     {
         ArrayList<Integer> actiune = new ArrayList<>();
-        for (int i = 0; i < map[((StareNav) stare).getID()].length; i++) 
+
+
+        for (int i = 0; i < map[((StareNav) stare).getID()].length; i++)
         {
-            if (map[((StareNav) stare).getID()][i] != 0) 
+            if (map[((StareNav) stare).getID()][i] != 0)
             {
                 if (null != stare.parinte)
                 {
                     if (i != ((StareNav) stare.parinte).getID())
                         actiune.add(i);
-                } 
+                }
                 else
                     actiune.add(i);
             }
@@ -39,17 +43,17 @@ public class NavProblem extends Problem
     }
 
     @Override
-    public Stare urmatoareaStare(Stare stare, int actiune) 
+    public Stare urmatoareaStare(Stare stare, int actiune)
     {
-        if (actiuni(stare).contains(actiune)) 
+        if (actiuni(stare).contains(actiune))
         {
             StareNav urmStare = new StareNav(actiune);
             urmStare.parinte = stare;
             urmStare.act = actiune;
             urmStare.costCale = stare.costCale + costPas(stare, actiune, urmStare);
             return urmStare;
-        } 
-        else 
+        }
+        else
         {
             System.out.println("wrong action");
             return null;
@@ -57,43 +61,43 @@ public class NavProblem extends Problem
     }
 
     @Override
-    public int costPas(Stare primaStare, int actiune, Stare adouaStare) 
+    public int costPas(Stare primaStare, int actiune, Stare adouaStare)
     {
         return costPas(primaStare, adouaStare);
     }
 
-    public int costPas(Stare primaStare, Stare adouaStare) 
+    public int costPas(Stare primaStare, Stare adouaStare)
     {
-        if (primaStare instanceof StareNav && adouaStare instanceof StareNav) 
+        if (primaStare instanceof StareNav && adouaStare instanceof StareNav)
         {
             if (map[((StareNav) primaStare).getID()][((StareNav) adouaStare).getID()] != 0)
                 return map[((StareNav) primaStare).getID()][((StareNav) adouaStare).getID()];
-            else 
+            else
             {
                 System.out.println("invalid step cost");
                 return -1;
             }
-        } 
-        else 
+        }
+        else
         {
             System.out.println("invalid step cost");
             return -1;
         }
     }
 
-    public int costPas(int primaStare, int adouaStare) 
+    public int costPas(int primaStare, int adouaStare)
     {
         return costPas(new StareNav(primaStare), new StareNav(adouaStare));
     }
 
     @Override
-    public int costCale(List<Integer> cale) 
+    public int costCale(List<Integer> cale)
     {
         int cost = 0;
-        for (int i = 0; i < cale.size() - 2; i++) 
+        for (int i = 0; i < cale.size() - 2; i++)
         {
             cost += costPas(cale.get(i), cale.get(i + 1));
-            if (i == cale.size() - 3) 
+            if (i == cale.size() - 3)
             {
                 cost += costPas(cale.get(i + 1), 0);
             }
@@ -102,17 +106,21 @@ public class NavProblem extends Problem
     }
 
     @Override
-    public int heuristic(Stare stare) 
+    public int heuristic(Stare stare)
     {
         return drumDrept[((StareNav) stare).getID()];
     }
 
-    private void initProblem() 
+
+
+
+
+    private void initProblem()
     {
-        stareInitiala = new StareNav(0);
+        stareInitiala = new StareNav(1);
         stareFinala = new StareNav(12);
 
-        //harta asta o am de pe internet, este harta oraselor din romania
+        //matricea de adiacenta a grafului harta
         map = new int[][]{
                 {0, 75, 0, 140, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {75, 0, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -136,10 +144,11 @@ public class NavProblem extends Problem
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 0}
         };
 
-        //acesta este costul fiecarui drum
+        //acesta este costul fiecarui drum (euristica)
         drumDrept = new int[]{366, 374, 380, 253, 329, 244, 241, 242,
                 160, 193, 98, 178, 0, 77, 80, 151, 161, 199, 226, 234};
-    }
 
+
+    }
 
 }

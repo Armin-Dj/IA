@@ -1,6 +1,6 @@
 
 public class BFS extends Algoritm{
-    
+
     public BFS(boolean isGraph)
     {
         super(isGraph);
@@ -23,7 +23,7 @@ public class BFS extends Algoritm{
             if (isGraph)
                 exploratLista.add(s);
             nodExpandat++;
-            
+
             for(Integer actiune: problem.actiuni(s))
             {
                 Stare copil = problem.urmatoareaStare(s, actiune);
@@ -39,8 +39,8 @@ public class BFS extends Algoritm{
                         }
                         totalLista.add(copil);
                     }
-                } 
-                else 
+                }
+                else
                 {
                     if(problem.testStareFinala(copil))
                     {
@@ -54,5 +54,5 @@ public class BFS extends Algoritm{
             maxNodInMemorie = Integer.max(maxNodInMemorie, totalLista.size() + exploratLista.size());
         }
 
-        }
+    }
 }

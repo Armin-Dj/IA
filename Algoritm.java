@@ -25,33 +25,33 @@ public abstract class Algoritm{
         exploratLista = new LinkedList<>();
     }
 
-    
-    public int getNodVizitat() 
+
+    public int getNodVizitat()
     {
         return nodVizitat;
     }
 
-    public int getNodExpandat() 
+    public int getNodExpandat()
     {
         return nodExpandat;
     }
 
-    public int getmaxNodInMemorie() 
+    public int getmaxNodInMemorie()
     {
         return maxNodInMemorie;
     }
 
-    public LinkedList<Integer> getDrum() 
+    public LinkedList<Integer> getDrum()
     {
         return drum;
     }
 
-    public void setProblem(Problem problem) 
+    public void setProblem(Problem problem)
     {
         this.problem = problem;
     }
 
-    public Problem getProblem() 
+    public Problem getProblem()
     {
         return problem;
     }
@@ -75,12 +75,12 @@ public abstract class Algoritm{
     protected void showLists()
     {
         System.out.print("Total liste: ");
-        for (Stare stare: totalLista) 
+        for (Stare stare: totalLista)
         {
             System.out.print(stare+ ", ");
         }
         System.out.print("\texplored list: ");
-        for (Stare stare: exploratLista) 
+        for (Stare stare: exploratLista)
         {
             System.out.print(stare+ ", ");
         }

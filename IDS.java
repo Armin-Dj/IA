@@ -1,16 +1,16 @@
-public class IDS extends Algoritm 
+public class IDS extends Algoritm
 {
 
-    public IDS(boolean isGraph) 
+    public IDS(boolean isGraph)
     {
         super(isGraph);
     }
 
     @Override
-    public void execute() 
+    public void execute()
     {
 
-        for (int adancime = 0; adancime < Integer.MAX_VALUE; adancime++) 
+        for (int adancime = 0; adancime < Integer.MAX_VALUE; adancime++)
         {
             DLS cautareDLS = new DLS(isGraph, adancime);
             cautareDLS.setProblem(problem);
@@ -22,7 +22,7 @@ public class IDS extends Algoritm
             nodVizitat = cautareDLS.nodVizitat;
             nodExpandat = cautareDLS.nodExpandat;
             maxNodInMemorie = cautareDLS.maxNodInMemorie;
-            
+
             if (cautareDLS.raspuns != null/*find solution*/ || resultat == -1/*failure in search*/)
                 break;
 

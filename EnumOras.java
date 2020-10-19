@@ -1,0 +1,22 @@
+public enum EnumOras {
+    ARAD,
+    ZERIND,
+    ORADEA,
+    SIBIU,
+    TIMISOARA,
+    LUGOJ,
+    MEHADIA,
+    BROBETA,
+    CRAIOVA,
+    RAMNICU_VALCEA,
+    PITESTI,
+    FAGARAS,
+    BUCURESTI,
+    GIURGIU,
+    URZICENI,
+    HARSOVA,
+    EFORIE,
+    VASLUI,
+    IASI,
+    NEAMT
+}
