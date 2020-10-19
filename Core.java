@@ -56,19 +56,6 @@ public class Core
     {
         System.out.println("Rezultatul " + algo.getClass().getSimpleName());
         System.out.print("path: ");
-        String oras = "";
-
-        for (int i = algo.getDrum().size() - 2; i >= 0; i--)
-        {
-            if(i == algo.getDrum().size() -2 ){
-                oras = EnumOras.values()[i+2].toString();
-            }
-            else
-                oras = EnumOras.values()[algo.getDrum().get(i)].toString();
-            if( i == 0 ) System.out.print(oras);
-            else System.out.print(oras + " -> ");
-        }
-        System.out.println();
         if(algo.raspuns != null) {
             System.out.println("Costul caii: " + algo.raspuns.costCale);
             System.out.println("Adancimea : " + (algo.getDrum().size() - 1));
@@ -78,7 +65,6 @@ public class Core
         }
         else {
             System.out.println("Nu s-a gasit un raspuns");
-            System.out.println("Adancimea : " + (algo.getDrum().size()));
             System.out.println("Numar noduri vizitate: " + algo.getNodVizitat());
             System.out.println("Numar noduri expandate: " + algo.getNodExpandat());
             System.out.println("Numar noduri in memorie: " + algo.getmaxNodInMemorie());}

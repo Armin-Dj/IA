@@ -111,13 +111,9 @@ public class NavProblem extends Problem
         return drumDrept[((StareNav) stare).getID()];
     }
 
-
-
-
-
     private void initProblem()
     {
-        stareInitiala = new StareNav(1);
+        stareInitiala = new StareNav(0);
         stareFinala = new StareNav(12);
 
         //matricea de adiacenta a grafului harta
@@ -147,8 +143,6 @@ public class NavProblem extends Problem
         //acesta este costul fiecarui drum (euristica)
         drumDrept = new int[]{366, 374, 380, 253, 329, 244, 241, 242,
                 160, 193, 98, 178, 0, 77, 80, 151, 161, 199, 226, 234};
-
-
     }
 
 }

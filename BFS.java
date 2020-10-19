@@ -1,4 +1,3 @@
-
 public class BFS extends Algoritm{
 
     public BFS(boolean isGraph)
@@ -53,6 +52,5 @@ public class BFS extends Algoritm{
             }
             maxNodInMemorie = Integer.max(maxNodInMemorie, totalLista.size() + exploratLista.size());
         }
-
     }
 }
