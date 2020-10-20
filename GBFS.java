@@ -49,8 +49,6 @@ public class GBFS extends Algoritm
                     totalLista.add(child);
                 }
             }
-
-            //nu e al nostru
             totalLista.sort(new Comparator<Stare>()
             {
                 @Override

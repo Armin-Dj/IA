@@ -113,7 +113,7 @@ public class NavProblem extends Problem
 
     private void initProblem()
     {
-        stareInitiala = new StareNav(0);
+        stareInitiala = new StareNav(1);
         stareFinala = new StareNav(12);
 
         //matricea de adiacenta a grafului harta

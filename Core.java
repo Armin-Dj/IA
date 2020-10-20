@@ -8,8 +8,8 @@ public class Core
         Problem problem = new NavProblem();
         Algoritm algo;
         System.out.println("Alegeti un algoritm: ");
-        System.out.println("1. BFS \n2. DFS\n3. IDS\n4. D limited depth" +
-                "\n5. Uniform Cost\n6. Greedy best first search\n7. A*");
+        System.out.println("1. BFS \n2. DFS\n3. IDS\n4. DLS" +
+                    "\n5. UCS \n6. GBFS\n7. A*");
         System.out.print("Inserati numarul algoritmului: ");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -56,12 +56,22 @@ public class Core
     {
         System.out.println("Rezultatul " + algo.getClass().getSimpleName());
         System.out.print("path: ");
+        String oras = "";
+        for (int i = algo.getDrum().size() - 2; i >= 0; i--)
+        {
+            if(algo.getDrum().get(i) > -1) {
+                oras = EnumOras.values()[algo.getDrum().get(i)].toString();
+                if (i == 0) System.out.print(oras);
+                else System.out.print(oras + " -> ");
+            }
+        }
         if(algo.raspuns != null) {
-            System.out.println("Costul caii: " + algo.raspuns.costCale);
+            System.out.println("\nCostul caii: " + algo.raspuns.costCale);
             System.out.println("Adancimea : " + (algo.getDrum().size() - 1));
             System.out.println("Numar noduri vizitate: " + algo.getNodVizitat());
             System.out.println("Numar noduri expandate: " + algo.getNodExpandat());
             System.out.println("Numar noduri in memorie: " + algo.getmaxNodInMemorie());
+
         }
         else {
             System.out.println("Nu s-a gasit un raspuns");

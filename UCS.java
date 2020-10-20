@@ -59,7 +59,6 @@ public class UCS extends Algoritm {
                 }
             }
 
-            //gasita pe internet
             totalLista.sort(new Comparator<Stare>()
             {
                 @Override

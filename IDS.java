@@ -23,7 +23,9 @@ public class IDS extends Algoritm
             nodExpandat = cautareDLS.nodExpandat;
             maxNodInMemorie = cautareDLS.maxNodInMemorie;
 
-            if (cautareDLS.raspuns != null/*find solution*/ || resultat == -1/*failure in search*/)
+            //null -> a gasit solutia
+            // -1 -> eroare in cautare
+            if (cautareDLS.raspuns != null|| resultat == -1)
                 break;
 
         }
